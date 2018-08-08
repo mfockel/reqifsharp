@@ -73,14 +73,28 @@ namespace ReqIFSharp
 	        var value = reader.GetAttribute("MAX");
 	        if (!string.IsNullOrEmpty(value))
 	        {
-		        this.Max = XmlConvert.ToInt32(value);
+				try
+				{
+					this.Max = XmlConvert.ToInt32(value);
+				}
+				catch (System.OverflowException)
+				{
+					this.Max = int.MaxValue;
+				}
 	        }
 
 	        value = reader.GetAttribute("MIN");
 	        if (!string.IsNullOrEmpty(value))
 	        {
-		        this.Min = XmlConvert.ToInt32(value);
-	        }
+				try
+				{
+					this.Min = XmlConvert.ToInt32(value);
+				}
+				catch (System.OverflowException)
+				{
+					this.Min = int.MinValue;
+				}
+			}
         }
 
         /// <summary>
